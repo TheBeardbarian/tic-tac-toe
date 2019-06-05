@@ -1,6 +1,20 @@
-'''This is a tic-tac-toe game. It does not have an AI to play against, so both sides must be played by players.'''
+'''Tic-Tac-Toe Game for 2 Players
+
+Python:
+    - 3.7
+
+Usage:
+    - $python tictactoe.py
+
+Rules:
+    1. First player selects either "X" or "O" as their player token, second player gets the remaining token.
+    2. Players take turns placing their token in a space on the board, one space at a time.
+    3. If, at any time, a player has three consecutive tokens horizontally, vertically, or diagonally, that player is the winner. If all spaces are occupied and neither player has three consecutive tokens, the game ends in a draw.
+'''
+
 
 import os
+
 
 class Player:
     def __init__(self, token):
@@ -9,7 +23,7 @@ class Player:
         self.win = False
 
     def take_turn(self):
-        global line2, line5, line8, line_list
+        global board
         choice = input("Player %s, choose a space! " % self.token.title())
         while True:
             if choice not in all_spaces:
@@ -21,26 +35,26 @@ class Player:
         self.spaces.append(choice)
         chosen_spaces.append(choice)
 
-        line2_split = list(line2)
-        line5_split = list(line5)
-        line8_split = list(line8)
+        line2_split = list(board[1])
+        line5_split = list(board[4])
+        line8_split = list(board[7])
         if choice in line2_split:
             index = line2_split.index(choice)
             line2_split[index] = self.token.title()
             line2 = "".join(line2_split)
-            line_list[1] = line2
+            board[1] = line2
         elif choice in line5_split:
             index = line5_split.index(choice)
             line5_split[index] = self.token.title()
             line5 = "".join(line5_split)
-            line_list[4] = line5
+            board[4] = line5
         else:
             index = line8_split.index(choice)
             line8_split[index] = self.token.title()
             line8 = "".join(line8_split)
-            line_list[7] = line8
+            board[7] = line8
         _ = os.system('cls' if os.name == 'nt' else 'clear')
-        for line in line_list:
+        for line in board:
             print(line)
 
 
@@ -51,27 +65,6 @@ class Player:
                 self.win = True
             else:
                 continue
-
-line1 = "   |   |   "
-line2 = " 0 | 1 | 2 "
-line3 = "___|___|___"
-line4 = "   |   |   "
-line5 = " 3 | 4 | 5 "
-line6 = "___|___|___"
-line7 = "   |   |   "
-line8 = " 6 | 7 | 8 "
-line9 = "   |   |   "
-
-line_list = [line1, line2, line3, line4, line5, line6, line7, line8, line9]
-
-all_spaces = ['0', '1', '2', '3', '4', '5', '6', '7', '8']
-choices = ['x', 'o']
-chosen_spaces = []
-player_list = []
-winning_combos = [['0', '1', '2'], ['3', '4', '5'],
-                ['6', '7', '8'], ['0', '3', '6'],
-                ['1', '4', '7'], ['2', '5', '8'],
-                ['0', '4', '8'], ['2', '4', '6']]
 
 def tictactoe():
     response = input("Would you like to be Xs or Os? (Please enter 'X' or 'O')")
@@ -87,7 +80,7 @@ def tictactoe():
     player2 = Player(choices[0])
     player_list.append(player2)
 
-    for line in line_list:
+    for line in board:
         print(line)
 
     while player1.win != True and player2.win != True:
@@ -107,6 +100,21 @@ def tictactoe():
         print("Player %s is the winner!" % player2.token.title())
     else:
         print("It's a draw!")
+
+
+board = ["   |   |   ", " 1 | 2 | 3 ", "___|___|___",
+    "   |   |   ", " 4 | 5 | 6 ", "___|___|___",
+    "   |   |   ", " 7 | 8 | 9 ", "   |   |   "]
+
+all_spaces = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+choices = ['x', 'o']
+chosen_spaces = []
+player_list = []
+winning_combos = [('1', '2', '3'), ('4', '5', '6'),
+                ('7', '8', '9'), ('1', '4', '7'),
+                ('2', '5', '8'), ('3', '6', '9'),
+                ('1', '5', '9'), ('3', '5', '7')]
+
 
 if __name__ == "__main__":
     tictactoe()
