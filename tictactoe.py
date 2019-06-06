@@ -24,7 +24,7 @@ class Player:
 
     def take_turn(self):
         global board
-        choice = input("Player %s, choose a space! " % self.token.title())
+        choice = input(f'Player {self.token.title()}, choose a space! ')
         while True:
             if choice not in all_spaces:
                 choice = input("That's not a valid space! Please choose again. ")
@@ -56,7 +56,6 @@ class Player:
         _ = os.system('cls' if os.name == 'nt' else 'clear')
         for line in board:
             print(line)
-
 
 
     def detect_winner(self):
@@ -95,9 +94,9 @@ def tictactoe():
         player2.detect_winner()
 
     if player1.win == True:
-        print("Player %s is the winner!" % player1.token.title())
+        print(f'Player {player1.token.title()} is the winner!')
     elif player2.win == True:
-        print("Player %s is the winner!" % player2.token.title())
+        print(f'Player {player2.token.title()} is the winner!')
     else:
         print("It's a draw!")
 
@@ -106,7 +105,7 @@ board = ["   |   |   ", " 1 | 2 | 3 ", "___|___|___",
     "   |   |   ", " 4 | 5 | 6 ", "___|___|___",
     "   |   |   ", " 7 | 8 | 9 ", "   |   |   "]
 
-all_spaces = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+all_spaces = ('1', '2', '3', '4', '5', '6', '7', '8', '9')
 choices = ['x', 'o']
 chosen_spaces = []
 player_list = []
